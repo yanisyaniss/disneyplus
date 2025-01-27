@@ -30,3 +30,6 @@
   font-size: 0.75rem;
 }
 
+* {
+  box-sizing: border-box;
+}
