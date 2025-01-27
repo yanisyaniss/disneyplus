@@ -47,7 +47,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./build # Spécifiez le dossier généré par "npm run build"
+          path: ./dist # Spécifiez le dossier généré par "npm run build"
  
       # Étape 5 : Déployer sur GitHub Pages
       - name: Deploy to GitHub Pages
