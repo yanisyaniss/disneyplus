@@ -1,0 +1,55 @@
+# Workflow pour déployer une application React sur GitHub Pages
+name: Deploy React App to Pages
+ 
+on:
+  push:
+    branches:
+      - main # Branche par défaut (changez si nécessaire)
+  workflow_dispatch:
+ 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+ 
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+ 
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      # Étape 1 : Cloner le code du dépôt
+      - name: Checkout
+        uses: actions/checkout@v4
+ 
+      # Étape 2 : Installer Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+ 
+      # Étape 3 : Installer les dépendances et générer le build
+      - name: Install dependencies
+        run: npm install
+ 
+      - name: Build React app
+        run: npm run build
+ 
+      # Étape 4 : Préparer le déploiement sur GitHub Pages
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+ 
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./build # Spécifiez le dossier généré par "npm run build"
+ 
+      # Étape 5 : Déployer sur GitHub Pages
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
