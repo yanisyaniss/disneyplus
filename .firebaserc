@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "disneyplus"
-  }
+    "default": "disneyplus",
+    "disneyy": "disneyplus-99eb6"
+  },
+  "targets": {},
+  "etags": {}
 }
